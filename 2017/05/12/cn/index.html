@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="利用blogdown创建博客">
+    <meta name="author" content="tonylu">
+
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <title>利用blogdown创建博客 &middot; 我的博客</title>
+
+   	
+    
+        <link rel="stylesheet" href="../../../../css/theme/journal.css">
+    
+
+    <link rel="stylesheet" href="../../../../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../../../css/monokai-sublime.css">
+   	
+   	<link rel="stylesheet" href="../../../../css/style.css">
+
+<link rel="stylesheet" href="../../../../css/custom.css">
+    
+    <script src="../../../../js/jquery.min-2.1.4.js"></script>
+    <script src="../../../../js/bootstrap.min-3.3.5.js"></script>
+    <script src="../../../../js/math-code.js"></script>
+     <script src="../../../../js/highlight.js"></script>
+    
+    <link href="" rel="alternate" type="application/rss+xml" title="我的博客" />
+</head>
+<body lang="en">
+    
+    <div class="container">
+    <div class="row">
+        <div class="navbar navbar-default navbar-inverse" role="navigation">
+            <div class="navbar-header">
+           <a class="navbar-brand" href="../../../../main/">我的博客</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../../../../main/">首页</a></li>
+                    <li><a href="../../../../post/">博客</a></li>
+                    
+                      <li><a href="../../../../about/"> 关于 </a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h3>利用blogdown创建博客</h3>
+        <span class="label label-primary">2017/12/05</span> in 
+        
+          
+          <a href="../../../../categories/blog">blog</a>
+         using tags
+        
+          
+          <a href="../../../../tags/blogdown">blogdown</a>
+        
+           , 
+          <a href="../../../../tags/%E5%8D%9A%E5%AE%A2">博客</a>
+        
+      </small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <br>
+      
+
+<p>自从看到谢益辉，这几天一直鼓捣怎么用Blogdown创建hugo博客，为什么一定要用blogdown创建博客呢？</p>
+
+<p>好处还是蛮多的，只说一条能够一条简单的命令实现生成 <a href="https://devhub.io/zh/repos/yihui-hugo-lithium-theme">html</a>。</p>
+
+<p>虽然他给出的代码只有三行很简单，但是为什么我花费了很长时间配置建站文件呢？</p>
+
+<p>只是因为不喜欢他默认的主题。:)</p>
+
+<pre><code>devtools::install_github('rstudio/blogdown')  # install blogdown
+blogdown::install_hugo()  # install Hugo
+blogdown::new_site(theme = 'yihui/hugo-lithium-theme')
+</code></pre>
+
+<p>他的hugo-lithium主题我不是很喜欢，个人偏爱</p>
+
+<pre><code>blogdown::new_site(theme='mpas/hugo-multi-bootswatch')
+</code></pre>
+
+<p>结果是，随着而来的无尽的麻烦。</p>
+
+<h3 id="麻烦1">麻烦1</h3>
+
+<p>在hugo-multi-bootswatch（以下简称“hmb”）主题中不支持mathjax，但是本人作为数学专业出身，不能忍受没有latex的博客，但是在hugo-lithium-theme（以下简称“hlt”）的主题中是支持的。</p>
+
+<p>所以，为了研究为什么xie的主题模板，几乎翻遍了主题中每个文件，结果发现是在主题文件/layouts/partials文件夹下
+就有footer_mathjax。哈哈，这就找到了药方，根据可怜的css知识知道应该把script代码放在了hmb主题中footer文件中，这就解决了mathjax问题。</p>
+
+<h3 id="麻烦2">麻烦2</h3>
+
+<p>在hmb主题中，博客标题的目录题目是Posts，简直不能再丑了！得想想办法解决，那么看到hlt主题博客以当年时间的作为目录，甚合我意！</p>
+
+<p>所以，还得寻找合适的解决办法。发现在主题文件/layouts/_default文件夹下有list文件，原封不动的换到hmb中的list文件。结果异常完美的解决了问题。</p>
+
+<h3 id="麻烦3">麻烦3</h3>
+
+<p>改完标题发现，文章列表好难看，所以索性把谢益辉的css直接拿过来用了，发现文章标题和日期之间的间距太窄了，看起来太丑！所有，想找找什么方法能解决这个问题，也花了不少时间。结果发现只需要在谢的css基础上稍作修改即可。</p>
+
+<pre><code>.content {
+  max-width: 1000px;  #把文章的宽度加宽即可
+  margin: 40px auto 10px;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+}
+
+</code></pre>
+
+<h3 id="麻烦4">麻烦4</h3>
+
+<p>首页和关于怎么显示？我觉得的方法是笨方法。</p>
+
+<p>具体是content文件夹下（不是在post文件夹）新建about.md文件，通过运行程序，生成about.html，但是有一个缺点，生成的文件会在首页的博客列表中显示，为了解决这一问题，只需要把content文件夹中about.md文件删掉重新运行程序即可。</p>
+
+<h3 id="麻烦5-6-7">麻烦5、6、7……</h3>
+
+<p>喜欢hugo <a href="https://gohugo.io/overview/introduction/">网站</a>超链接，网站需要评论……</p>
+
+<p>最后要说一声，怎么用git进行版本控制。</p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+        <div class="row col-md-12">
+            <footer>
+                <div class="pull-left">
+                    <p>
+                        &copy;  ~ Powered By <a href="http://hugo.spf13.com">Hugo</a> - version: 0.20.7 ~ <a href="//license">License</a>
+                    </p>
+                </div>
+
+                
+                <div class="pull-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </footer>
+        </div>
+    </div>
+   <script src="../../../../js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    </body>
+</html>
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="创建Hugo博客">
+    <meta name="author" content="tonylu">
+
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <title>创建Hugo博客 &middot; 我的博客</title>
+
+   	
+    
+        <link rel="stylesheet" href="../../../../css/theme/journal.css">
+    
+
+    <link rel="stylesheet" href="../../../../css/font-awesome.min.css">
+
+   	
+   	<link rel="stylesheet" href="../../../../css/style.css">
+
+
+    
+    <script src="../../../../js/jquery.min-2.1.4.js"></script>
+    <script src="../../../../js/bootstrap.min-3.3.5.js"></script>
+    <script src="../../../../js/math-code.js"></script>
+    
+    <link href="" rel="alternate" type="application/rss+xml" title="我的博客" />
+</head>
+<body lang="en">
+    
+    <div class="container">
+    <div class="row">
+        <div class="navbar navbar-default navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../../../../">我的博客</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../../../../">Home</a></li>
+                    <li><a href="//post/">Blog</a></li>
+                    
+                      <li><a href=""> GitHub </a></li>
+                    
+                      <li><a href=""> Twitter </a></li>
+                    
+                      <li><a href="../../../../about/"> 主页 </a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<h3>创建Hugo博客</h3>
+				<span class="label label-primary">Wed, May 10, 2017</span> in 
+				 using tags
+				
+			</small>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<br>
+			
+
+<p>之前通过Jekyll创建github<a href="http://luyajun01.github.io/github-page/">博客</a>虽然很方便，但是网站编译的速度很慢，为了解决这个问题，现决定把编译网站引擎换成hugo。</p>
+
+<p>具体操作步骤是这样：</p>
+
+<h2 id="下载hugo程序">下载hugo程序</h2>
+
+<blockquote>
+<p>首先到hugo<a href="https://github.com/spf13/hugo/releases">官网</a>下载hugo.exe</p>
+</blockquote>
+
+<h2 id="利用git下载博客目录结构">利用git下载博客目录结构</h2>
+
+<pre><code>$ cd g:\\hugo\\luyajun01.github.io %在g盘下建立hugo\\luyajun01.github.io文件夹
+
+$ hugo new site luyajun01.github.io %确保hugo文件下有hugo.exe执行文件
+</code></pre>
+
+<p>然后hugo会自动生成这样一个目录结构：</p>
+
+<pre><code>▸ archetypes/
+▸ content/
+▸ layouts/
+▸ static/
+config.toml
+</code></pre>
+
+<p>接着执行下列命令</p>
+
+<pre><code>$ hugo new post/first.md
+</code></pre>
+
+<p>执行完后，会在content/post目录自动生成一个MarkDown格式的first.md文件：</p>
+
+<pre><code>+++
+date = &quot;2017-05-08T08:36:54-07:00&quot;
+draft = true
+title = &quot;first&quot;
++++
+</code></pre>
+
+<p>下面就可以开始写你的文章内容，比如：</p>
+
+<pre><code>+++
+date = &quot;2015-01-08T08:36:54-07:00&quot;
+draft = true
+title = &quot;first&quot;
++++
+### Hello Hugo
+1. aaa
+2. bbb
+3. ccc
+</code></pre>
+
+<p>接下来就是配置hugo主题，我们用谢益辉网站<a href="https://github.com/yihui/hugo-lithium-theme" title="主题">主题</a>，具体操作方法是</p>
+
+<pre><code>$ cd themes %确保主题下载在themes文件下
+$ git clone https://github.com/yihui/hugo-lithium-theme.git
+</code></pre>
+
+<p>安装好之后，就可以编译了</p>
+
+<pre><code>$ hugo server --theme=hugo --buildDrafts --watch
+</code></pre>
+
+<p>顺便吐槽windows版本的git，竟不能自动粘贴程序，经问度娘后，发现这么解决：</p>
+
+<blockquote>
+<p>在Bash命令行界面上右键点击左上角，在出现的菜单中点击properties，然后在quickedit上打上对钩。</p>
+</blockquote>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<hr>
+		</div>
+	</div>
+</div>
+
+    <div class="container">
+        <div class="row col-md-12">
+            <footer>
+                <div class="pull-left">
+                    <p>
+                        &copy;  ~ Powered By <a href="http://hugo.spf13.com">Hugo</a> - version: 0.20.7 ~ <a href="//license">License</a>
+                    </p>
+                </div>
+
+                
+                <div class="pull-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </footer>
+        </div>
+    </div>
+   <script src="../../../../js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    </body>
+</html>
+

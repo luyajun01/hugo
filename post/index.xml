@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 我的博客</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on 我的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 12 May 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/post/" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>利用blogdown创建博客</title>
+            <link>/2017/05/12/cn/</link>
+            <pubDate>Fri, 12 May 2017 00:00:00 +0000</pubDate>
+            
+            <guid>/2017/05/12/cn/</guid>
+            <description>
+
+&lt;p&gt;自从看到谢益辉，这几天一直鼓捣怎么用Blogdown创建hugo博客，为什么一定要用blogdown创建博客呢？&lt;/p&gt;
+
+&lt;p&gt;好处还是蛮多的，只说一条能够一条简单的命令实现生成 &lt;a href=&#34;https://devhub.io/zh/repos/yihui-hugo-lithium-theme&#34;&gt;html&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;虽然他给出的代码只有三行很简单，但是为什么我花费了很长时间配置建站文件呢？&lt;/p&gt;
+
+&lt;p&gt;只是因为不喜欢他默认的主题。:)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;devtools::install_github(&#39;rstudio/blogdown&#39;)  # install blogdown
+blogdown::install_hugo()  # install Hugo
+blogdown::new_site(theme = &#39;yihui/hugo-lithium-theme&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;他的hugo-lithium主题我不是很喜欢，个人偏爱&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;blogdown::new_site(theme=&#39;mpas/hugo-multi-bootswatch&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果是，随着而来的无尽的麻烦。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦1&#34;&gt;麻烦1&lt;/h3&gt;
+
+&lt;p&gt;在hugo-multi-bootswatch（以下简称“hmb”）主题中不支持mathjax，但是本人作为数学专业出身，不能忍受没有latex的博客，但是在hugo-lithium-theme（以下简称“hlt”）的主题中是支持的。&lt;/p&gt;
+
+&lt;p&gt;所以，为了研究为什么xie的主题模板，几乎翻遍了主题中每个文件，结果发现是在主题文件/layouts/partials文件夹下
+就有footer_mathjax。哈哈，这就找到了药方，根据可怜的css知识知道应该把script代码放在了hmb主题中footer文件中，这就解决了mathjax问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦2&#34;&gt;麻烦2&lt;/h3&gt;
+
+&lt;p&gt;在hmb主题中，博客标题的目录题目是Posts，简直不能再丑了！得想想办法解决，那么看到hlt主题博客以当年时间的作为目录，甚合我意！&lt;/p&gt;
+
+&lt;p&gt;所以，还得寻找合适的解决办法。发现在主题文件/layouts/_default文件夹下有list文件，原封不动的换到hmb中的list文件。结果异常完美的解决了问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦3&#34;&gt;麻烦3&lt;/h3&gt;
+
+&lt;p&gt;改完标题发现，文章列表好难看，所以索性把谢益辉的css直接拿过来用了，发现文章标题和日期之间的间距太窄了，看起来太丑！所有，想找找什么方法能解决这个问题，也花了不少时间。结果发现只需要在谢的css基础上稍作修改即可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.content {
+  max-width: 1000px;  #把文章的宽度加宽即可
+  margin: 40px auto 10px;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;麻烦4&#34;&gt;麻烦4&lt;/h3&gt;
+
+&lt;p&gt;首页和关于怎么显示？我觉得的方法是笨方法。&lt;/p&gt;
+
+&lt;p&gt;具体是content文件夹下（不是在post文件夹）新建about.md文件，通过运行程序，生成about.html，但是有一个缺点，生成的文件会在首页的博客列表中显示，为了解决这一问题，只需要把content文件夹中about.md文件删掉重新运行程序即可。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦5-6-7&#34;&gt;麻烦5、6、7……&lt;/h3&gt;
+
+&lt;p&gt;喜欢hugo &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34;&gt;网站&lt;/a&gt;超链接，网站需要评论……&lt;/p&gt;
+
+&lt;p&gt;最后要说一声，怎么用git进行版本控制。&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>利用git创建Hugo博客</title>
+            <link>/2017/05/10/cn/</link>
+            <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+            
+            <guid>/2017/05/10/cn/</guid>
+            <description>
+
+&lt;p&gt;之前通过Jekyll创建github&lt;a href=&#34;http://luyajun01.github.io/github-page/&#34;&gt;博客&lt;/a&gt;虽然很方便，但是网站编译的速度很慢，为了解决这个问题，现决定把编译网站引擎换成hugo。&lt;/p&gt;
+
+&lt;p&gt;具体操作步骤是这样：&lt;/p&gt;
+
+&lt;h2 id=&#34;下载hugo程序&#34;&gt;下载hugo程序&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;首先到hugo&lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;官网&lt;/a&gt;下载hugo.exe&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;利用git下载博客目录结构&#34;&gt;利用git下载博客目录结构&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd g:\\hugo\\luyajun01.github.io %在g盘下建立hugo\\luyajun01.github.io文件夹
+
+$ hugo new site luyajun01.github.io %确保hugo文件下有hugo.exe执行文件
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后hugo会自动生成这样一个目录结构：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;▸ archetypes/
+▸ content/
+▸ layouts/
+▸ static/
+config.toml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着执行下列命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行完后，会在content/post目录自动生成一个MarkDown格式的first.md文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+date = &amp;quot;2017-05-08T08:36:54-07:00&amp;quot;
+draft = true
+title = &amp;quot;first&amp;quot;
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下面就可以开始写你的文章内容，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+date = &amp;quot;2015-01-08T08:36:54-07:00&amp;quot;
+draft = true
+title = &amp;quot;first&amp;quot;
++++
+### Hello Hugo
+1. aaa
+2. bbb
+3. ccc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下来就是配置hugo主题，我们用谢益辉网站&lt;a href=&#34;https://github.com/yihui/hugo-lithium-theme&#34; title=&#34;主题&#34;&gt;主题&lt;/a&gt;，具体操作方法是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd themes %确保主题下载在themes文件下
+$ git clone https://github.com/yihui/hugo-lithium-theme.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装好之后，就可以编译了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo server --theme=hugo --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;顺便吐槽windows版本的git，竟不能自动粘贴程序，经问度娘后，发现这么解决：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;在Bash命令行界面上右键点击左上角，在出现的菜单中点击properties，然后在quickedit上打上对钩。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>Hello R Markdown</title>
+            <link>/2015/07/23/hello-r-markdown/</link>
+            <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+            
+            <guid>/2015/07/23/hello-r-markdown/</guid>
+            <description>&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R Markdown&lt;/h1&gt;
+&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; class=&#34;uri&#34;&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can embed an R code chunk like this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(cars)
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+fit &amp;lt;- lm(dist ~ speed, data = cars)
+fit
+## 
+## Call:
+## lm(formula = dist ~ speed, data = cars)
+## 
+## Coefficients:
+## (Intercept)        speed  
+##     -17.579        3.932&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Including Plots&lt;/h1&gt;
+&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
+  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
+  init.angle = -50, border = NA
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;../post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\sqrt{2}\)&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+          </item>
+        
+      
+    
+  </channel>
+</rss>

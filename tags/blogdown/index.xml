@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogdown on 我的博客</title>
+    <link>/tags/blogdown/</link>
+    <description>Recent content in Blogdown on 我的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 12 May 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/blogdown/" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>利用blogdown创建博客</title>
+            <link>/2017/05/12/cn/</link>
+            <pubDate>Fri, 12 May 2017 00:00:00 +0000</pubDate>
+            
+            <guid>/2017/05/12/cn/</guid>
+            <description>
+
+&lt;p&gt;自从看到谢益辉，这几天一直鼓捣怎么用Blogdown创建hugo博客，为什么一定要用blogdown创建博客呢？&lt;/p&gt;
+
+&lt;p&gt;好处还是蛮多的，只说一条能够一条简单的命令实现生成 &lt;a href=&#34;https://devhub.io/zh/repos/yihui-hugo-lithium-theme&#34;&gt;html&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;虽然他给出的代码只有三行很简单，但是为什么我花费了很长时间配置建站文件呢？&lt;/p&gt;
+
+&lt;p&gt;只是因为不喜欢他默认的主题。:)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;devtools::install_github(&#39;rstudio/blogdown&#39;)  # install blogdown
+blogdown::install_hugo()  # install Hugo
+blogdown::new_site(theme = &#39;yihui/hugo-lithium-theme&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;他的hugo-lithium主题我不是很喜欢，个人偏爱&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;blogdown::new_site(theme=&#39;mpas/hugo-multi-bootswatch&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果是，随着而来的无尽的麻烦。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦1&#34;&gt;麻烦1&lt;/h3&gt;
+
+&lt;p&gt;在hugo-multi-bootswatch（以下简称“hmb”）主题中不支持mathjax，但是本人作为数学专业出身，不能忍受没有latex的博客，但是在hugo-lithium-theme（以下简称“hlt”）的主题中是支持的。&lt;/p&gt;
+
+&lt;p&gt;所以，为了研究为什么xie的主题模板，几乎翻遍了主题中每个文件，结果发现是在主题文件/layouts/partials文件夹下
+就有footer_mathjax。哈哈，这就找到了药方，根据可怜的css知识知道应该把script代码放在了hmb主题中footer文件中，这就解决了mathjax问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦2&#34;&gt;麻烦2&lt;/h3&gt;
+
+&lt;p&gt;在hmb主题中，博客标题的目录题目是Posts，简直不能再丑了！得想想办法解决，那么看到hlt主题博客以当年时间的作为目录，甚合我意！&lt;/p&gt;
+
+&lt;p&gt;所以，还得寻找合适的解决办法。发现在主题文件/layouts/_default文件夹下有list文件，原封不动的换到hmb中的list文件。结果异常完美的解决了问题。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦3&#34;&gt;麻烦3&lt;/h3&gt;
+
+&lt;p&gt;改完标题发现，文章列表好难看，所以索性把谢益辉的css直接拿过来用了，发现文章标题和日期之间的间距太窄了，看起来太丑！所有，想找找什么方法能解决这个问题，也花了不少时间。结果发现只需要在谢的css基础上稍作修改即可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.content {
+  max-width: 1000px;  #把文章的宽度加宽即可
+  margin: 40px auto 10px;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;麻烦4&#34;&gt;麻烦4&lt;/h3&gt;
+
+&lt;p&gt;首页和关于怎么显示？我觉得的方法是笨方法。&lt;/p&gt;
+
+&lt;p&gt;具体是content文件夹下（不是在post文件夹）新建about.md文件，通过运行程序，生成about.html，但是有一个缺点，生成的文件会在首页的博客列表中显示，为了解决这一问题，只需要把content文件夹中about.md文件删掉重新运行程序即可。&lt;/p&gt;
+
+&lt;h3 id=&#34;麻烦5-6-7&#34;&gt;麻烦5、6、7……&lt;/h3&gt;
+
+&lt;p&gt;喜欢hugo &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34;&gt;网站&lt;/a&gt;超链接，网站需要评论……&lt;/p&gt;
+
+&lt;p&gt;最后要说一声，怎么用git进行版本控制。&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+  </channel>
+</rss>
