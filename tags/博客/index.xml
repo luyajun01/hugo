@@ -78,6 +78,13 @@ blogdown::new_site(theme = &#39;yihui/hugo-lithium-theme&#39;)
 &lt;p&gt;喜欢hugo &lt;a href=&#34;https://gohugo.io/overview/introduction/&#34;&gt;网站&lt;/a&gt;超链接，网站需要评论……&lt;/p&gt;
 
 &lt;p&gt;最后要说一声，怎么用git进行版本控制。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd d:\\hugo #文件所在位置
+git add .
+git commit -m  &amp;quot;comment&amp;quot;
+git remote add origin https://github.com/luyajun01/hugo.git
+git push -f origin master
+&lt;/code&gt;&lt;/pre&gt;
 </description>
           </item>
         
