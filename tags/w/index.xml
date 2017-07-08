@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>W on 我的博客</title>
+    <link>/tags/w/</link>
+    <description>Recent content in W on 我的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 13 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/w/" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>we</title>
+            <link>/2017/06/13/cn/</link>
+            <pubDate>Tue, 13 Jun 2017 00:00:00 +0000</pubDate>
+            
+            <guid>/2017/06/13/cn/</guid>
+            <description>&lt;p&gt;we we&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+  </channel>
+</rss>
