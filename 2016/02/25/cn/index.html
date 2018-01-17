@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="logistic回归模型学习">
+    <meta name="author" content="tonylu">
+
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+
+    <title>logistic回归模型学习 &middot; 我的博客</title>
+
+   	
+    
+        <link rel="stylesheet" href="../../../../css/theme/journal.css">
+    
+
+    <link rel="stylesheet" href="../../../../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../../../css/monokai-sublime.css">
+   	
+   	<link rel="stylesheet" href="../../../../css/style.css">
+
+<link rel="stylesheet" href="../../../../css/custom.css">
+    
+    <script src="../../../../js/jquery.min-2.1.4.js"></script>
+    <script src="../../../../js/bootstrap.min-3.3.5.js"></script>
+    <script src="../../../../js/math-code.js"></script>
+     <script src="../../../../js/highlight.js"></script>
+    
+    <link href="" rel="alternate" type="application/rss+xml" title="我的博客" />
+</head>
+<body lang="en">
+    
+    <div class="container">
+    <div class="row">
+        <div class="navbar navbar-default navbar-inverse" role="navigation">
+            <div class="navbar-header">
+           <a class="navbar-brand" href="../../../../main/">我的博客</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../../../../main/">首页</a></li>
+                    <li><a href="../../../../post/">博客</a></li>
+                    
+                      <li><a href="../../../../about/"> 关于 </a></li>
+                    
+                </ul>
+            </div>
+        </div>
+</div>
+
+
+
+
+<main class="content" role="main">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h3>logistic回归模型学习</h3>
+        <span class="label label-primary">2016/25/02</span> in 
+        
+          
+          <a href="../../../../categories/logistic">logistic</a>
+         using tags
+        
+      </small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <br>
+      <p>最近在帮岳峰做关于一个水利预测项目的课题，其中一套数据是关于农村自来水普及率的预测问题。数据如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>指标</th>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>农村自来水普及率</td>
+<td>0.51</td>
+<td>0.56</td>
+<td>0.62</td>
+<td>0.68</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<p>趋势图如下：</p>
+<pre class="r"><code>rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+data=data.frame(rate,year)
+plot(year,rate,type=&quot;l&quot;,main=&quot;农村自来水普及率&quot;)</code></pre>
+<p><img src="../../../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>从趋势图可以看出，随着年份的增加，普及率也随着增加，而且有明显的线性趋势，所以很容易想到利用线性模型进行预测，</p>
+<pre class="r"><code>rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+model1=lm(rate~1+year)
+summary(model1)#参数估计是否显著</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = rate ~ 1 + year)
+## 
+## Residuals:
+##      1      2      3      4      5 
+##  0.006 -0.004 -0.004 -0.004  0.006 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -120.096      4.024  -29.84 8.26e-05 ***
+## year           0.060      0.002   30.00 8.14e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.006325 on 3 degrees of freedom
+## Multiple R-squared:  0.9967, Adjusted R-squared:  0.9956 
+## F-statistic:   900 on 1 and 3 DF,  p-value: 8.135e-05</code></pre>
+<pre class="r"><code>time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+plot(predict,time,type=&quot;l&quot;,main=&quot;农村自来水普及率&quot;)</code></pre>
+<p><img src="../../../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>从图中可以看出2020年的预测值已经超过了100%，不符合实际情况。根据普及率不能超过100%这一特点，很容易想到利用logistics回归模型进行预测，因为其回归曲线是“S”型。</p>
+<p>Logistic回归是一种广义线性回归，其模型定义如下：</p>
+<p>考虑具有<span class="math inline">\(p\)</span>个独立变量的向量<span class="math inline">\(x^{&#39;}=(x_{1},x_{2},\dots,x_{p})\)</span>，设条件概率<span class="math inline">\(P(Y=1|x)=p\)</span>为某事件发生的概率。 logistic回归的响应变量是分类变量，那么不能直接和连续型自变量产生联系，那么就需要一个连接函数<span class="math inline">\(g(x)\)</span>将<span class="math inline">\(Y\)</span>映射成连续型变量和<span class="math inline">\(X\)</span>联系在一起，那么逻辑回归模型形式为： <span class="math display">\[
+p=P(Y=1|x)=\dfrac{e^{g(x)}}{1+e^{g(x)}},g(x)=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]</span>, 经过logistic变换可得， <span class="math display">\[
+\log(\dfrac{p}{1-p})=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]</span>, 在上述例子中，不妨假设 <span class="math display">\[
+Y=\left\{ \begin{align}
+  &amp; 1, 饮用自来水人群\\ 
+ &amp; 0, 饮用其他水源人群\\ 
+\end{align} \right.
+\]</span>，则有<span class="math inline">\(p=P(Y(t=2010)=1)=0.51\)</span>，根据计算可得未来6年内农村自来水普及率。</p>
+<pre class="r"><code>rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+y=log(rate/(1-rate))
+model1=lm(y~1+year)
+summary(model1)#参数估计是否显著</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ 1 + year)
+## 
+## Residuals:
+##        1        2        3        4        5 
+##  0.04135 -0.02048 -0.03507 -0.03383  0.04803 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -528.59590   30.31442  -17.44 0.000411 ***
+## year           0.26298    0.01507   17.45 0.000410 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.04765 on 3 degrees of freedom
+## Multiple R-squared:  0.9902, Adjusted R-squared:  0.987 
+## F-statistic: 304.7 on 1 and 3 DF,  p-value: 0.0004099</code></pre>
+<pre class="r"><code>time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+predicty=exp(predict)/(1+exp(predict))
+predicty</code></pre>
+<pre><code>##  [1] 0.4996638 0.5650388 0.6282274 0.6873163 0.7408872 0.7881094 0.8287153
+##  [8] 0.8628933 0.8911473 0.9141581 0.9326721</code></pre>
+<pre class="r"><code>plot(time,predicty,type=&quot;l&quot;,main=&quot;农村自来水普及率&quot;,xlab = &quot;年份&quot;, ylab=&quot;自来水普及率&quot;,col=&quot;red&quot;)
+lines(year,rate,col = &quot;blue&quot;)
+legend(2018,0.8,c(&quot;预测值&quot;,&quot;真实值&quot;),lty=1,bty=&quot;n&quot;,col=c(&quot;red&quot;,&quot;blue&quot;))</code></pre>
+<p><img src="../../../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+    </div>
+    <div id="article-nav-older" class="article-nav-link-wrap">
+        
+          <a class="previous" href="../../../../2016/01/08/cn/"id="article-nav-older"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> 一年工作总结以及新年工作愿景</a>
+        
+            </div>
+        <div id="article-nav-newer" class="article-nav-link-wrap">  
+        
+          <a class="next" href="../../../../2016/03/02/cn/"id="article-nav-newer"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> 下一步的研究工作</a>
+        
+  </div>
+ 
+<section id="comments">
+  <div id="disqus_thread"></div>
+  <script>
+  var disqus_config = function () {
+  
+  };
+  (function() {
+    var inIFrame = function() {
+      var iframe = true;
+      try { iframe = window.self !== window.top; } catch (e) {}
+      return iframe;
+    };
+    if (inIFrame()) return;
+    var d = document, s = d.createElement('script');
+    s.src = '//luyajun01.disqus.com/embed.js'; s.async = true;
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+ </main>
+    <main class="content" role="main">
+        <div class="row col-md-12">
+            <footer>
+               <ul class="footer-links">
+                   <li><a href="https://github.com/luyajun01"><i class="fa fa-github" aria-hidden="true" title="Github"></i><span class="sr-only">Github</span></a></li>
+          <li><a href="https://twitter.com/Tony_luyajun"><i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i><span class="sr-only">Twitter</span></a></li>
+          <li><a href="http://weibo.com/u/1265286733?refer_flag=1005055010_&is_all=1"><i class="fa fa-weibo" aria-hidden="true" title="新浪微博"></i><span class="sr-only">新浪微博</span></a></li>
+          
+          <li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><i class="fa fa-cc" aria-hidden="true" title="Attribution-NonCommercial-ShareAlike 4.0 International"></i><span class="sr-only">Attribution-NonCommercial-ShareAlike 4.0 International</span></a></li>
+          <li><a href="../../../../"><i class="fa fa-copyright" aria-hidden="true" title="Copyright"></i> 2005 - 2017</a></li>
+        </ul>
+                
+
+                
+                <div class="pull-right">
+                    
+                    
+                    
+                    
+                    
+                    
+                   
+                </div>
+            </footer>
+        </div>
+   </main>
+   <script src="../../../../js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    </body>
+</html>
+
+
+
+
+   

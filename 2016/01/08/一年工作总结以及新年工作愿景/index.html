@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="利用git创建Hugo博客">
+    <meta name="description" content="一年工作总结以及新年工作愿景">
     <meta name="author" content="tonylu">
 
     <meta name="keyword" content="">
     <link rel="shortcut icon" href="../../../../favicon.ico">
 
-    <title>利用git创建Hugo博客 &middot; 我的博客</title>
+    <title>一年工作总结以及新年工作愿景 &middot; 我的博客</title>
 
    	
     
@@ -57,8 +57,8 @@
 <main class="content" role="main">
   <div class="row">
     <div class="col-md-offset-1 col-md-10">
-      <h3>利用git创建Hugo博客</h3>
-        <span class="label label-primary">2017/10/05</span> in 
+      <h3>一年工作总结以及新年工作愿景</h3>
+        <span class="label label-primary">2016/08/01</span> in 
          using tags
         
       </small>
@@ -67,77 +67,26 @@
   <div class="row">
     <div class="col-md-offset-1 col-md-10">
       <br>
-      
+      <p>新的一年已经来了。回顾2015年发生的种种，总体来说，共发生了两件大事。</p>
 
-<p>之前通过Jekyll创建github<a href="http://luyajun01.github.io/github-page/">博客</a>虽然很方便，但是网站编译的速度很慢，为了解决这个问题，现决定把编译网站引擎换成hugo。</p>
+<p>一件事是顺利从人大统计学院毕业了。不容易，真的是很不容易。读博三年，付出了很多，自身的收获却不如自己的预期，自身觉得除了混了一张文凭以外，似乎skills并没有学到多少。 另一件事是找到一份并不是十分对口的工作。工作半年以来，需要总结的东西也是蛮多的。所以借此过年机会，一并把这几年需要总结之处写下来，还是那句话“有则改之无则加勉”。</p>
 
-<p>具体操作步骤是这样：</p>
+<p>自身存在的问题包括以下几个方面：</p>
 
-<h2 id="下载hugo程序">下载hugo程序</h2>
+<p>一是懒惰。 所有的一切不如意的根本原因就是不够努力。什么事情都是拖着的做，毫无计划、散漫，执行力不够，惩罚自己的力度不够。</p>
 
-<blockquote>
-<p>首先到hugo<a href="https://github.com/spf13/hugo/releases">官网</a>下载hugo.exe</p>
-</blockquote>
+<p>二是缺少计划。 一年要读多少书，专业技能方面要学哪些知识，要改正哪些不良习惯应该制定一些计划督促自己。</p>
 
-<h2 id="利用git下载博客目录结构">利用git下载博客目录结构</h2>
+<p>三是无毅力。 什么事情都是做一阵子之后就放弃了，不能坚持做一件事情。</p>
 
-<pre><code>$ cd g:\\hugo\\luyajun01.github.io %在g盘下建立hugo\\luyajun01.github.io文件夹
+<p>在生活中，也是一团糟。最近，快成为月光族了，没有勤俭节约。每天花的钱和时间都要做记录，不能随便浪费。 感情方面，找到一个合适自己的，确实是很不容易啊，随缘吧，做好自己，把个人形象提升上去，说话慢一些，做事尽量也慢一些，思考的更周到一些。</p>
 
-$ hugo new site luyajun01.github.io %确保hugo文件下有hugo.exe执行文件
-</code></pre>
+<p>说了这么多，也指出了我自身存在的问题及不足，想要改正这些缺点挺不容易的，方法就是循序渐进，但是一定要坚持地做完一件事。 2016年的要做的和想要做的有以下几个方面：</p>
 
-<p>然后hugo会自动生成这样一个目录结构：</p>
+<p>在工作中，圆满完成各项课题研究任务，方法和方式包括：查阅相关材料、同事经验。一年中，至少完成2-3篇学术论文工作。
+生活中，要严肃对待每一件事，态度不能嘻嘻哈哈，不能随意。养成良好的卫生习惯。</p>
 
-<pre><code>▸ archetypes/
-▸ content/
-▸ layouts/
-▸ static/
-config.toml
-</code></pre>
-
-<p>接着执行下列命令</p>
-
-<pre><code>$ hugo new post/first.md
-</code></pre>
-
-<p>执行完后，会在content/post目录自动生成一个MarkDown格式的first.md文件：</p>
-
-<pre><code>+++
-date = &quot;2017-05-08T08:36:54-07:00&quot;
-draft = true
-title = &quot;first&quot;
-+++
-</code></pre>
-
-<p>下面就可以开始写你的文章内容，比如：</p>
-
-<pre><code>+++
-date = &quot;2015-01-08T08:36:54-07:00&quot;
-draft = true
-title = &quot;first&quot;
-+++
-### Hello Hugo
-1. aaa
-2. bbb
-3. ccc
-</code></pre>
-
-<p>接下来就是配置hugo主题，我们用谢益辉网站<a href="https://github.com/yihui/hugo-lithium-theme" title="主题">主题</a>，具体操作方法是</p>
-
-<pre><code>$ cd themes %确保主题下载在themes文件下
-$ git clone https://github.com/yihui/hugo-lithium-theme.git
-</code></pre>
-
-<p>安装好之后，就可以编译了</p>
-
-<pre><code>$ hugo server --theme=hugo --buildDrafts --watch
-</code></pre>
-
-<p>顺便吐槽windows版本的git，竟不能自动粘贴程序，经问度娘后，发现这么解决：</p>
-
-<blockquote>
-<p>在Bash命令行界面上右键点击左上角，在出现的菜单中点击properties，然后在quickedit上打上对钩。</p>
-</blockquote>
+<p>每个月都要完成一定量的读书任务，（每个月可以读2本书），写好个人体会与总结。记得把优美的词语发到微博或朋友圈进行共享。</p>
 
     </div>
   </div>
@@ -147,12 +96,12 @@ $ git clone https://github.com/yihui/hugo-lithium-theme.git
     </div>
     <div id="article-nav-older" class="article-nav-link-wrap">
         
-          <a class="previous" href="../../../../2016/03/02/cn/"id="article-nav-older"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> 下一步的研究工作</a>
+          <a class="previous" href="../../../../2015/07/23/hello-r-markdown/"id="article-nav-older"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Hello R Markdown</a>
         
             </div>
         <div id="article-nav-newer" class="article-nav-link-wrap">  
         
-          <a class="next" href="../../../../2017/05/12/cn/"id="article-nav-newer"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> 利用blogdown创建博客</a>
+          <a class="next" href="../../../../2017/05/10/cn/"id="article-nav-newer"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> 利用git创建Hugo博客</a>
         
   </div>
  

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网站 on 我的博客</title>
+    <link>/tags/%E7%BD%91%E7%AB%99/</link>
+    <description>Recent content in 网站 on 我的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 27 Nov 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/%E7%BD%91%E7%AB%99/" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>构建github page网站</title>
+            <link>/2013/11/27/cn/</link>
+            <pubDate>Wed, 27 Nov 2013 00:00:00 +0000</pubDate>
+            
+            <guid>/2013/11/27/cn/</guid>
+            <description>
+
+&lt;p&gt;构建github page网站具体步骤:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首先从其他网站clone主题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:****/****.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在本地建一文件件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd ****.github.io
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;然后上传到github网站&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;abc&amp;quot;
+git remote set-url origin git@github.com:****/****.github.io.git
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果git push origin master出现问题，可以用下列命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git push -f origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本地预览
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jekyll serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;打开 &lt;a href=&#34;http://localhost:4000/&#34;&gt;http://localhost:4000/&lt;/a&gt;进行本地预览&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;需要注意的问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p align=Justify&gt;
+如果在 git remote set-url origin git@github.com:****/****.github.io.git遇到问题，需要执行下列命令
+  git remote rm origin
+&lt;/p&gt;
+
+&lt;p&gt;_post文件夹下文件名不能是中文的。&lt;/p&gt;
+
+&lt;h3 id=&#34;关于git的若干运用实例&#34;&gt;关于Git的若干运用实例&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何用命令创建一个名叫code的repository？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;touch README.md
+git init
+git add README.md
+git commit -m &amp;quot;first commit&amp;quot;
+git remote add origin https://github.com/luyajun01/code.git
+git push -u origin master`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何将一个存在的repository上传到Github上？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git remote add origin https://github.com/luyajun01/code.git
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+  </channel>
+</rss>

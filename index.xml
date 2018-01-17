@@ -291,6 +291,187 @@ $ git clone https://github.com/yihui/hugo-lithium-theme.git
       
         
           <item>
+            <title>下一步的研究工作</title>
+            <link>/2016/03/02/cn/</link>
+            <pubDate>Wed, 02 Mar 2016 00:00:00 +0000</pubDate>
+            
+            <guid>/2016/03/02/cn/</guid>
+            <description>&lt;blockquote&gt;
+&lt;p&gt;子曰：学而不思则罔，思而不学则殆——《论语·为政》&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;人生苦短，苦恨还未建功立业！以前你问我有没有理想，我想不出来，现在我想说我想成为一名专家型人才！我要奋斗！我要苦学！！！&lt;/p&gt;
+
+&lt;p&gt;孔夫子说过：“知耻近乎勇”，今天叕被领导批评了。原因只有一个，工作做的不够扎实。&lt;/p&gt;
+
+&lt;p&gt;扪心自问，过去5年的工作似乎可以用四个字形容，一团浆糊。究其原因，首先是学习的态度不够端正，很懒惰，誓死与此类行为做拼死斗争！第二是没有掌握科学的学习方法，学完知识之后，就没有再复习，写学习收获，不会总结！第三是性格原因，太内向，遇到不明白的不敢问人。&lt;/p&gt;
+
+&lt;p&gt;成功的原因可能会有很多种，但是失败的理由就是这几条。&lt;/p&gt;
+
+&lt;p&gt;怎么办！！！立马克服它！！！&lt;/p&gt;
+
+&lt;p&gt;懒惰是因为没有制定科学、合理的学习、工作计划，之前也制定过计划，但是都没有坚持下来，根本原因是思想上不够重视，没有科学的方法是还是因为自己不够勤奋，不肯摸索、寻找方法。至于第三条，还是因为不够勤奋，平时不够用心，没有做出可以与人讨论的东西，导致与人交流时，没有交流内容。&lt;/p&gt;
+
+&lt;p&gt;今年的工作重点是水资源统计报表制度试点工作，需要做的事情有很多，需要列出工作提纲，详细说明工作流程，需要做哪些事情。&lt;/p&gt;
+
+&lt;p&gt;今年立志成为水资源领域的专家。加油！！&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>logistic回归模型学习</title>
+            <link>/2016/02/25/cn/</link>
+            <pubDate>Thu, 25 Feb 2016 00:00:00 +0000</pubDate>
+            
+            <guid>/2016/02/25/cn/</guid>
+            <description>&lt;p&gt;最近在帮岳峰做关于一个水利预测项目的课题，其中一套数据是关于农村自来水普及率的预测问题。数据如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;2010&lt;/th&gt;
+&lt;th&gt;2011&lt;/th&gt;
+&lt;th&gt;2012&lt;/th&gt;
+&lt;th&gt;2013&lt;/th&gt;
+&lt;th&gt;2014&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;农村自来水普及率&lt;/td&gt;
+&lt;td&gt;0.51&lt;/td&gt;
+&lt;td&gt;0.56&lt;/td&gt;
+&lt;td&gt;0.62&lt;/td&gt;
+&lt;td&gt;0.68&lt;/td&gt;
+&lt;td&gt;0.75&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;趋势图如下：&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+data=data.frame(rate,year)
+plot(year,rate,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2016-02-25-logistic_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;从趋势图可以看出，随着年份的增加，普及率也随着增加，而且有明显的线性趋势，所以很容易想到利用线性模型进行预测，&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+model1=lm(rate~1+year)
+summary(model1)#参数估计是否显著&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = rate ~ 1 + year)
+## 
+## Residuals:
+##      1      2      3      4      5 
+##  0.006 -0.004 -0.004 -0.004  0.006 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -120.096      4.024  -29.84 8.26e-05 ***
+## year           0.060      0.002   30.00 8.14e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.006325 on 3 degrees of freedom
+## Multiple R-squared:  0.9967, Adjusted R-squared:  0.9956 
+## F-statistic:   900 on 1 and 3 DF,  p-value: 8.135e-05&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+plot(predict,time,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2016-02-25-logistic_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;从图中可以看出2020年的预测值已经超过了100%，不符合实际情况。根据普及率不能超过100%这一特点，很容易想到利用logistics回归模型进行预测，因为其回归曲线是“S”型。&lt;/p&gt;
+&lt;p&gt;Logistic回归是一种广义线性回归，其模型定义如下：&lt;/p&gt;
+&lt;p&gt;考虑具有&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;个独立变量的向量&lt;span class=&#34;math inline&#34;&gt;\(x^{&amp;#39;}=(x_{1},x_{2},\dots,x_{p})\)&lt;/span&gt;，设条件概率&lt;span class=&#34;math inline&#34;&gt;\(P(Y=1|x)=p\)&lt;/span&gt;为某事件发生的概率。 logistic回归的响应变量是分类变量，那么不能直接和连续型自变量产生联系，那么就需要一个连接函数&lt;span class=&#34;math inline&#34;&gt;\(g(x)\)&lt;/span&gt;将&lt;span class=&#34;math inline&#34;&gt;\(Y\)&lt;/span&gt;映射成连续型变量和&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;联系在一起，那么逻辑回归模型形式为： &lt;span class=&#34;math display&#34;&gt;\[
+p=P(Y=1|x)=\dfrac{e^{g(x)}}{1+e^{g(x)}},g(x)=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]&lt;/span&gt;, 经过logistic变换可得， &lt;span class=&#34;math display&#34;&gt;\[
+\log(\dfrac{p}{1-p})=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]&lt;/span&gt;, 在上述例子中，不妨假设 &lt;span class=&#34;math display&#34;&gt;\[
+Y=\left\{ \begin{align}
+  &amp;amp; 1, 饮用自来水人群\\ 
+ &amp;amp; 0, 饮用其他水源人群\\ 
+\end{align} \right.
+\]&lt;/span&gt;，则有&lt;span class=&#34;math inline&#34;&gt;\(p=P(Y(t=2010)=1)=0.51\)&lt;/span&gt;，根据计算可得未来6年内农村自来水普及率。&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+y=log(rate/(1-rate))
+model1=lm(y~1+year)
+summary(model1)#参数估计是否显著&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = y ~ 1 + year)
+## 
+## Residuals:
+##        1        2        3        4        5 
+##  0.04135 -0.02048 -0.03507 -0.03383  0.04803 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -528.59590   30.31442  -17.44 0.000411 ***
+## year           0.26298    0.01507   17.45 0.000410 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.04765 on 3 degrees of freedom
+## Multiple R-squared:  0.9902, Adjusted R-squared:  0.987 
+## F-statistic: 304.7 on 1 and 3 DF,  p-value: 0.0004099&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+predicty=exp(predict)/(1+exp(predict))
+predicty&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] 0.4996638 0.5650388 0.6282274 0.6873163 0.7408872 0.7881094 0.8287153
+##  [8] 0.8628933 0.8911473 0.9141581 0.9326721&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(time,predicty,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;,xlab = &amp;quot;年份&amp;quot;, ylab=&amp;quot;自来水普及率&amp;quot;,col=&amp;quot;red&amp;quot;)
+lines(year,rate,col = &amp;quot;blue&amp;quot;)
+legend(2018,0.8,c(&amp;quot;预测值&amp;quot;,&amp;quot;真实值&amp;quot;),lty=1,bty=&amp;quot;n&amp;quot;,col=c(&amp;quot;red&amp;quot;,&amp;quot;blue&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2016-02-25-logistic_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>一年工作总结以及新年工作愿景</title>
+            <link>/2016/01/08/cn/</link>
+            <pubDate>Fri, 08 Jan 2016 00:00:00 +0000</pubDate>
+            
+            <guid>/2016/01/08/cn/</guid>
+            <description>&lt;p&gt;新的一年已经来了。回顾2015年发生的种种，总体来说，共发生了两件大事。&lt;/p&gt;
+
+&lt;p&gt;一件事是顺利从人大统计学院毕业了。不容易，真的是很不容易。读博三年，付出了很多，自身的收获却不如自己的预期，自身觉得除了混了一张文凭以外，似乎skills并没有学到多少。 另一件事是找到一份并不是十分对口的工作。工作半年以来，需要总结的东西也是蛮多的。所以借此过年机会，一并把这几年需要总结之处写下来，还是那句话“有则改之无则加勉”。&lt;/p&gt;
+
+&lt;p&gt;自身存在的问题包括以下几个方面：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;一是懒惰。&lt;/strong&gt; 所有的一切不如意的根本原因就是不够努力。什么事情都是拖着的做，毫无计划、散漫，执行力不够，惩罚自己的力度不够。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;二是缺少计划。&lt;/strong&gt; 一年要读多少书，专业技能方面要学哪些知识，要改正哪些不良习惯应该制定一些计划督促自己。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;三是无毅力。&lt;/strong&gt; 什么事情都是做一阵子之后就放弃了，不能坚持做一件事情。&lt;/p&gt;
+
+&lt;p&gt;在生活中，也是一团糟。最近，快成为月光族了，没有勤俭节约。每天花的钱和时间都要做记录，不能随便浪费。 感情方面，找到一个合适自己的，确实是很不容易啊，随缘吧，做好自己，把个人形象提升上去，说话慢一些，做事尽量也慢一些，思考的更周到一些。&lt;/p&gt;
+
+&lt;p&gt;说了这么多，也指出了我自身存在的问题及不足，想要改正这些缺点挺不容易的，方法就是循序渐进，但是一定要坚持地做完一件事。 2016年的要做的和想要做的有以下几个方面：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在工作中，圆满完成各项课题研究任务，方法和方式包括：查阅相关材料、同事经验。一年中，至少完成2-3篇学术论文工作。
+生活中，要严肃对待每一件事，态度不能嘻嘻哈哈，不能随意。养成良好的卫生习惯。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;每个月都要完成一定量的读书任务，（每个月可以读2本书），写好个人体会与总结。记得把优美的词语发到微博或朋友圈进行共享。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
             <title>Hello R Markdown</title>
             <link>/2015/07/23/hello-r-markdown/</link>
             <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
@@ -336,6 +517,112 @@ Figure 1: A fancy pie chart.
 &lt;/div&gt;
 &lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\sqrt{2}\)&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
+</description>
+          </item>
+        
+      
+    
+      
+        
+          <item>
+            <title>构建github page网站</title>
+            <link>/2013/11/27/cn/</link>
+            <pubDate>Wed, 27 Nov 2013 00:00:00 +0000</pubDate>
+            
+            <guid>/2013/11/27/cn/</guid>
+            <description>
+
+&lt;p&gt;构建github page网站具体步骤:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;首先从其他网站clone主题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:****/****.github.io.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在本地建一文件件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd ****.github.io
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;然后上传到github网站&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git add .
+git commit -m &amp;quot;abc&amp;quot;
+git remote set-url origin git@github.com:****/****.github.io.git
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果git push origin master出现问题，可以用下列命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git push -f origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;本地预览
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jekyll serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;打开 &lt;a href=&#34;http://localhost:4000/&#34;&gt;http://localhost:4000/&lt;/a&gt;进行本地预览&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;需要注意的问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p align=Justify&gt;
+如果在 git remote set-url origin git@github.com:****/****.github.io.git遇到问题，需要执行下列命令
+  git remote rm origin
+&lt;/p&gt;
+
+&lt;p&gt;_post文件夹下文件名不能是中文的。&lt;/p&gt;
+
+&lt;h3 id=&#34;关于git的若干运用实例&#34;&gt;关于Git的若干运用实例&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何用命令创建一个名叫code的repository？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;touch README.md
+git init
+git add README.md
+git commit -m &amp;quot;first commit&amp;quot;
+git remote add origin https://github.com/luyajun01/code.git
+git push -u origin master`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如何将一个存在的repository上传到Github上？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git remote add origin https://github.com/luyajun01/code.git
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;&lt;/p&gt;
 </description>
           </item>
         

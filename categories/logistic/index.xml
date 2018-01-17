@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Logistic on 我的博客</title>
+    <link>/categories/logistic/</link>
+    <description>Recent content in Logistic on 我的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 25 Feb 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/categories/logistic/" rel="self" type="application/rss+xml" />
+    
+      
+        
+          <item>
+            <title>logistic回归模型学习</title>
+            <link>/2016/02/25/cn/</link>
+            <pubDate>Thu, 25 Feb 2016 00:00:00 +0000</pubDate>
+            
+            <guid>/2016/02/25/cn/</guid>
+            <description>&lt;p&gt;最近在帮岳峰做关于一个水利预测项目的课题，其中一套数据是关于农村自来水普及率的预测问题。数据如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;指标&lt;/th&gt;
+&lt;th&gt;2010&lt;/th&gt;
+&lt;th&gt;2011&lt;/th&gt;
+&lt;th&gt;2012&lt;/th&gt;
+&lt;th&gt;2013&lt;/th&gt;
+&lt;th&gt;2014&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;农村自来水普及率&lt;/td&gt;
+&lt;td&gt;0.51&lt;/td&gt;
+&lt;td&gt;0.56&lt;/td&gt;
+&lt;td&gt;0.62&lt;/td&gt;
+&lt;td&gt;0.68&lt;/td&gt;
+&lt;td&gt;0.75&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;趋势图如下：&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+data=data.frame(rate,year)
+plot(year,rate,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;从趋势图可以看出，随着年份的增加，普及率也随着增加，而且有明显的线性趋势，所以很容易想到利用线性模型进行预测，&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+model1=lm(rate~1+year)
+summary(model1)#参数估计是否显著&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = rate ~ 1 + year)
+## 
+## Residuals:
+##      1      2      3      4      5 
+##  0.006 -0.004 -0.004 -0.004  0.006 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -120.096      4.024  -29.84 8.26e-05 ***
+## year           0.060      0.002   30.00 8.14e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.006325 on 3 degrees of freedom
+## Multiple R-squared:  0.9967, Adjusted R-squared:  0.9956 
+## F-statistic:   900 on 1 and 3 DF,  p-value: 8.135e-05&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+plot(predict,time,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;从图中可以看出2020年的预测值已经超过了100%，不符合实际情况。根据普及率不能超过100%这一特点，很容易想到利用logistics回归模型进行预测，因为其回归曲线是“S”型。&lt;/p&gt;
+&lt;p&gt;Logistic回归是一种广义线性回归，其模型定义如下：&lt;/p&gt;
+&lt;p&gt;考虑具有&lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;个独立变量的向量&lt;span class=&#34;math inline&#34;&gt;\(x^{&amp;#39;}=(x_{1},x_{2},\dots,x_{p})\)&lt;/span&gt;，设条件概率&lt;span class=&#34;math inline&#34;&gt;\(P(Y=1|x)=p\)&lt;/span&gt;为某事件发生的概率。 logistic回归的响应变量是分类变量，那么不能直接和连续型自变量产生联系，那么就需要一个连接函数&lt;span class=&#34;math inline&#34;&gt;\(g(x)\)&lt;/span&gt;将&lt;span class=&#34;math inline&#34;&gt;\(Y\)&lt;/span&gt;映射成连续型变量和&lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;联系在一起，那么逻辑回归模型形式为： &lt;span class=&#34;math display&#34;&gt;\[
+p=P(Y=1|x)=\dfrac{e^{g(x)}}{1+e^{g(x)}},g(x)=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]&lt;/span&gt;, 经过logistic变换可得， &lt;span class=&#34;math display&#34;&gt;\[
+\log(\dfrac{p}{1-p})=\beta_{0}+\beta_{1}x_{1}+\cdots+\beta_{p}x_{p}
+\]&lt;/span&gt;, 在上述例子中，不妨假设 &lt;span class=&#34;math display&#34;&gt;\[
+Y=\left\{ \begin{align}
+  &amp;amp; 1, 饮用自来水人群\\ 
+ &amp;amp; 0, 饮用其他水源人群\\ 
+\end{align} \right.
+\]&lt;/span&gt;，则有&lt;span class=&#34;math inline&#34;&gt;\(p=P(Y(t=2010)=1)=0.51\)&lt;/span&gt;，根据计算可得未来6年内农村自来水普及率。&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rate=c(0.51,0.56,0.62,0.68,0.75)
+year=c(2010,2011,2012,2013,2014)
+y=log(rate/(1-rate))
+model1=lm(y~1+year)
+summary(model1)#参数估计是否显著&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = y ~ 1 + year)
+## 
+## Residuals:
+##        1        2        3        4        5 
+##  0.04135 -0.02048 -0.03507 -0.03383  0.04803 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -528.59590   30.31442  -17.44 0.000411 ***
+## year           0.26298    0.01507   17.45 0.000410 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.04765 on 3 degrees of freedom
+## Multiple R-squared:  0.9902, Adjusted R-squared:  0.987 
+## F-statistic: 304.7 on 1 and 3 DF,  p-value: 0.0004099&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;time=seq(from=2010,to=2020)
+predict=model1$coefficients[1]+model1$coefficients[2]*time
+predicty=exp(predict)/(1+exp(predict))
+predicty&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] 0.4996638 0.5650388 0.6282274 0.6873163 0.7408872 0.7881094 0.8287153
+##  [8] 0.8628933 0.8911473 0.9141581 0.9326721&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(time,predicty,type=&amp;quot;l&amp;quot;,main=&amp;quot;农村自来水普及率&amp;quot;,xlab = &amp;quot;年份&amp;quot;, ylab=&amp;quot;自来水普及率&amp;quot;,col=&amp;quot;red&amp;quot;)
+lines(year,rate,col = &amp;quot;blue&amp;quot;)
+legend(2018,0.8,c(&amp;quot;预测值&amp;quot;,&amp;quot;真实值&amp;quot;),lty=1,bty=&amp;quot;n&amp;quot;,col=c(&amp;quot;red&amp;quot;,&amp;quot;blue&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2016-02-25-logistic_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+</description>
+          </item>
+        
+      
+    
+  </channel>
+</rss>
